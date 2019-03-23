@@ -20,29 +20,50 @@ document.addEventListener('submit', function setPicks() {
   event.preventDefault();
   cells = canvas.querySelectorAll('td');
 
+ //function to draw grid
+  function drawActiveGrid(){
+
+    for (let a = 0; a < width; a++ ) {
+       row = canvas.insertRow(a);
+       // sets a click event listener and which sets color
+       //from the user input
+       row.addEventListener('click', (e) =>{
+         //function setColor
+           var clicked = e.target;
+           color.addEventListener('change',(e) =>
+        //function onColorUpdate
+              {
+              selectedColor = e.target.value;
+                   })
+        clicked.style.backgroundColor = selectedColor;
+                })
+     for (let b = 0; b < height; b++ ) {
+          cell = row.insertCell(b);
+          }
+        }
+  }
+
 //check if the grid has been created and
 //creates a new grid on submit
   if ( cells.length === 0 ) {
-     for (let a = 0; a < width; a++ ) {
-        row = canvas.insertRow(a);
-        // sets a click event listener and which sets color
-        //from the user input
-        row.addEventListener('click', function setColor(e){
-        var clicked = e.target;
-        clicked.style.backgroundColor = selectedColor;
-        })
-        for (let b = 0; b < height; b++ ) {
-           cell = row.insertCell(b);
-           }
-     }
+    drawActiveGrid();
   }
 
   //clears the colors grid if any of the cells
   //in the grid have been colored
   else {
-     for ( let p =0 ; p < cells.length; p++ ){
-        cells[p].style.backgroundColor = "#ffffff";
-        }
+       var newDimensions = (height * width);
+       if ( newDimensions === cells.length ){
+         for ( let p = 0 ; p < cells.length; p++ ){
+            cells[p].style.backgroundColor = "#ffffff";
+            }
+                   }
+      else {
+        // clear whole canvas and redraw
+        canvas.innerHTML="";
+        drawActiveGrid();
+            }
+
            }
               }
                  )
